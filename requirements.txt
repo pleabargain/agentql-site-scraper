@@ -1,0 +1,6 @@
+playwright
+agentql
+streamlit
+pytest
+pylint
+python-dotenv
