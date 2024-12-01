@@ -91,7 +91,16 @@ def login_to_portal(url: str, username: str, password: str) -> None:
         username (str): Login username
         password (str): Login password
     """
-    
+
+    # Updated Exhibitor Hub queries with XPath
+    EXHIBITOR_HUB_QUERY = """
+    {
+        submit_btn "a[href='/exhibitor/challenge'][class='_button_1p0fh_8 _--primary_1p0fh_136 _--theme-default_1p0fh_80']"
+        submit_btn_text "Log in to the Exhibitor Hub"
+    }
+    """
+
+
     # Updated login form query with exact selectors based on provided JSON details
     LOGIN_FORM_QUERY = """
     {
@@ -112,13 +121,7 @@ def login_to_portal(url: str, username: str, password: str) -> None:
     }
     """
 
-    # Updated Exhibitor Hub queries with XPath
-    EXHIBITOR_HUB_QUERY = """
-    {
-        submit_btn "a[href='/exhibitor/challenge'][class='_button_1p0fh_8 _--primary_1p0fh_136 _--theme-default_1p0fh_80']"
-        submit_btn_text "Log in to the Exhibitor Hub"
-    }
-    """
+
 
     try:
         logging.info("Initializing Playwright")
@@ -152,7 +155,7 @@ def login_to_portal(url: str, username: str, password: str) -> None:
             response.password_field.fill(password)
             
             logging.info("Clicking submit button")
-            response.login_button.click()
+            response.body.login_button.click()
             
         except Exception as form_error:
             logging.warning(f"AgentQL query failed for login form: {str(form_error)}")
